@@ -1,3 +1,5 @@
+package br.com.jotaportela.screenmatch.principal;
+
 import br.com.jotaportela.screenmatch.calculos.CalculadoraDeTempo;
 import br.com.jotaportela.screenmatch.calculos.FiltroRecomendacao;
 import br.com.jotaportela.screenmatch.modelos.Episodio;

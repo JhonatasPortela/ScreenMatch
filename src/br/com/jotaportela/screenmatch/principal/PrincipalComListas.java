@@ -1,32 +1,56 @@
 package br.com.jotaportela.screenmatch.principal;
-
 import br.com.jotaportela.screenmatch.modelos.Filme;
 import br.com.jotaportela.screenmatch.modelos.Serie;
 import br.com.jotaportela.screenmatch.modelos.Titulo;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PrincipalComListas {
     public static void main(String[] args) {
-        var filme1 = new Filme("Superman", 2025);
-        filme1.avalia(10);
-        var filme2 = new Filme("Besouro azul", 2023);
-        filme2.avalia(3.5);
-        var filme3 = new Filme("Esquadrão suicida 2", 2021);
-        filme3.avalia(9.2);
-        var serie = new Serie("The walking dead", 2010);
+        Filme meuFilme = new Filme("Superman", 2025);
+        meuFilme.avalia(10);
+        Filme outroFilme = new Filme("Besouro azul", 2023);
+        outroFilme.avalia(8.5);
+        Filme filme3 = new Filme("Esquadrão suicida 2", 2021);
+        filme3.avalia(7.8);
+        Serie theWalkingDead = new Serie("The walking dead", 2010);
+        theWalkingDead.avalia(9.5);
+        theWalkingDead.setAtiva(true);
 
-        var listaDeFilmes = new ArrayList<Titulo>();
-        listaDeFilmes.add(filme1);
-        listaDeFilmes.add(filme2);
-        listaDeFilmes.add(filme3);
-        listaDeFilmes.add(serie);
+        var lista = new ArrayList<Titulo>();
+        lista.add(meuFilme);
+        lista.add(outroFilme);
+        lista.add(filme3);
+        lista.add(theWalkingDead);
+        System.out.println(lista.size());
+        System.out.println( lista);
 
-        for(var titulo : listaDeFilmes) {
-            System.out.println(titulo.getNome());
-            if (titulo instanceof Filme filme && filme.getClassificacao() > 2) {
-                System.out.println("Avaliação   : " + filme.getClassificacao());
+        for (Titulo item : lista) {
+            System.out.println(item.getNome());
+            if (item instanceof Filme filme && filme.getClassificacao() > 2) {
+                System.out.println("Classificação: " + filme.getClassificacao());
+            } else if (item instanceof Serie serie && serie.isAtiva()) {
+                System.out.println("Série ativa");
             }
         }
+
+        var listaNomes = new ArrayList<String>();
+        listaNomes.add("Zeus");
+        listaNomes.add("Luiza");
+        listaNomes.add("Jhonatas");
+        listaNomes.add("Sofia");
+
+        Collections.sort(listaNomes);
+        System.out.println("Lista de nomes ordenada:");
+        System.out.println(listaNomes);
+
+        Collections.sort(lista);
+        System.out.println("Lista de títulos ordenada:");
+        System.out.println(lista);
+
+        lista.sort(Comparator.comparing(Titulo::getAnoDeLancamento));
+        System.out.println("Lista de títulos ordenada por ano de lançamento:");
+        System.out.println(lista);
     }
 }

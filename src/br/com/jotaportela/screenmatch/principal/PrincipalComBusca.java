@@ -1,7 +1,10 @@
 package br.com.jotaportela.screenmatch.principal;
 
 import br.com.jotaportela.screenmatch.modelos.Titulo;
+import br.com.jotaportela.screenmatch.modelos.TituloOmdb;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.URI;
@@ -27,8 +30,14 @@ public class PrincipalComBusca {
 
         String json = response.body();
 
-        Gson gson = new Gson();
-        Titulo titulo = gson.fromJson(json, Titulo.class);
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
+        TituloOmdb tituloOmdb = gson.fromJson(json, TituloOmdb.class);
+        System.out.println(tituloOmdb);
+
+        Titulo titulo = new Titulo(tituloOmdb);
+        System.out.println("Titulo convertido:");
         System.out.println(titulo);
     }
 }

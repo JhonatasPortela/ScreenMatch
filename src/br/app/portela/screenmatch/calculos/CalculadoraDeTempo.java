@@ -1,6 +1,6 @@
-package br.com.jotaportela.screenmatch.calculos;
+package br.app.portela.screenmatch.calculos;
 
-import br.com.jotaportela.screenmatch.modelos.Titulo;
+import br.app.portela.screenmatch.modelos.Titulo;
 
 public class CalculadoraDeTempo {
     private int tempoTotal;

@@ -1,10 +1,10 @@
-package br.com.jotaportela.screenmatch.principal;
+package br.app.portela.screenmatch.principal;
 
-import br.com.jotaportela.screenmatch.calculos.CalculadoraDeTempo;
-import br.com.jotaportela.screenmatch.calculos.FiltroRecomendacao;
-import br.com.jotaportela.screenmatch.modelos.Episodio;
-import br.com.jotaportela.screenmatch.modelos.Filme;
-import br.com.jotaportela.screenmatch.modelos.Serie;
+import br.app.portela.screenmatch.calculos.CalculadoraDeTempo;
+import br.app.portela.screenmatch.calculos.FiltroRecomendacao;
+import br.app.portela.screenmatch.modelos.Episodio;
+import br.app.portela.screenmatch.modelos.Filme;
+import br.app.portela.screenmatch.modelos.Serie;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package br.com.jotaportela.screenmatch.modelos;
+package br.app.portela.screenmatch.modelos;
 
-import br.com.jotaportela.screenmatch.calculos.Classificavel;
+import br.app.portela.screenmatch.calculos.Classificavel;
 
 public class Filme extends Titulo implements Classificavel {
 private String diretor;

@@ -1,7 +1,7 @@
-package br.com.jotaportela.screenmatch.principal;
-import br.com.jotaportela.screenmatch.modelos.Filme;
-import br.com.jotaportela.screenmatch.modelos.Serie;
-import br.com.jotaportela.screenmatch.modelos.Titulo;
+package br.app.portela.screenmatch.principal;
+import br.app.portela.screenmatch.modelos.Filme;
+import br.app.portela.screenmatch.modelos.Serie;
+import br.app.portela.screenmatch.modelos.Titulo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

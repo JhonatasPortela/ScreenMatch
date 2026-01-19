@@ -1,4 +1,4 @@
-package br.com.jotaportela.screenmatch.modelos;
+package br.app.portela.screenmatch.modelos;
 
 public record TituloOmdb(String title, String year, String runtime) {
 }

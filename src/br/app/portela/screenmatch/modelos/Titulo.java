@@ -1,11 +1,10 @@
-package br.com.jotaportela.screenmatch.modelos;
+package br.app.portela.screenmatch.modelos;
 
+import br.app.portela.screenmatch.exceptions.ErroAnoInvalido;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo>{
-    @SerializedName("Title")
     private String nome;
-    @SerializedName("Year")
     private int anoDeLancamento;
     private int duracaoEmMinutos;
     private double somaDasAvaliacoes;
@@ -19,12 +18,19 @@ public class Titulo implements Comparable<Titulo>{
 
     public Titulo(TituloOmdb tituloOmdb) {
         this.nome = tituloOmdb.title();
+        if(tituloOmdb.year().length() > 4){
+            throw new ErroAnoInvalido("Erro ao converter o ano: " + tituloOmdb.year());
+        }
         this.anoDeLancamento = Integer.valueOf(tituloOmdb.year());
-        this.duracaoEmMinutos = Integer.valueOf(tituloOmdb.runtime().substring(0,2));
-    }
-
-    public void setAnoDeLancamento(int anoDeLancamento) {
-        this.anoDeLancamento = anoDeLancamento;
+       // String apenasNumeros = tituloOmdb.runtime().replaceAll("\\D", "");
+       // if (apenasNumeros.isEmpty()) {
+       //     this.duracaoEmMinutos = 0;
+       // } else {
+       //     this.duracaoEmMinutos = Integer.valueOf(apenasNumeros);
+       // }
+       // this.duracaoEmMinutos =Integer.valueOf(tituloOmdb.runtime().replaceAll("\\D", ""));
+        this.duracaoEmMinutos =
+                Integer.valueOf(tituloOmdb.runtime().substring(0,3));
     }
 
     public int getAnoDeLancamento() {

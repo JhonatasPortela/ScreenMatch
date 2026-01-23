@@ -7,11 +7,14 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PrincipalComBusca {
@@ -19,39 +22,53 @@ public class PrincipalComBusca {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o título da busca:");
         var busca = scanner.nextLine();
-        String url = "http://www.omdbapi.com/?t=" + busca.replace(" ", "+") +
-                "&apikey" +
-                "=92a14529";
-        try {
 
+        List<Titulo> titulosBuscados = new ArrayList<>();
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .create();
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .build();
-            HttpResponse<String> response = client
-                    .send(request, HttpResponse.BodyHandlers.ofString());
+        while (!busca.contentEquals("sair")) {
+            try {
+                String url = "http://www.omdbapi.com/?t=" + busca.replace(" ", "+") +
+                        "&apikey" +
+                        "=92a14529";
 
-            String json = response.body();
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .build();
+                HttpResponse<String> response = client
+                        .send(request, HttpResponse.BodyHandlers.ofString());
 
-            Gson gson = new GsonBuilder()
-                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                    .create();
-            TituloOmdb tituloOmdb = gson.fromJson(json, TituloOmdb.class);
-            System.out.println(tituloOmdb);
+                String json = response.body();
+                TituloOmdb tituloOmdb = gson.fromJson(json, TituloOmdb.class);
+                System.out.println(tituloOmdb);
+                Titulo titulo = new Titulo(tituloOmdb);
+                System.out.println("Titulo convertido:");
+                System.out.println(titulo);
+                titulosBuscados.add(titulo);
+                System.out.println("Digite o título da busca ou 'sair' para encerrar:");
+                busca = scanner.nextLine();
 
-
-            Titulo titulo = new Titulo(tituloOmdb);
-            System.out.println("Titulo convertido:");
-            System.out.println(titulo);
-        } catch (NumberFormatException e) {
-            System.out.println("Erro ao converter o título: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Erro no argumento da busca : " + e.getMessage());
-        } catch (ErroAnoInvalido e) {
-            System.out.println( e.getMessage());
-        } finally {
-            System.out.println("Busca concluída.");
+            } catch (NumberFormatException e) {
+                System.out.println("Erro ao converter o título: " + e.getMessage());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro no argumento da busca : " + e.getMessage());
+                break;
+            } catch (ErroAnoInvalido e) {
+                System.out.println(e.getMessage());
+                break;
+            } finally {
+                System.out.println("Busca concluída.");
+            }
         }
+        System.out.println("Titulos buscados:");
+        System.out.println(titulosBuscados);
+        FileWriter writer = new FileWriter("titulos_buscados.json");
+        writer.write(gson.toJson(titulosBuscados));
+        writer.close();
     }
 }
